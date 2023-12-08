@@ -74,29 +74,31 @@ class Categories extends StatelessWidget {
             ..._builderDrawItems(context),
             const Divider(),
             ListTile(
-              title: const Text("Vazgeç"),
-              trailing: const Icon(Icons.cancel),
+              title: const Text("Vazgeç",style: TextStyle(color: Colors.red),),
+              trailing: const Icon(Icons.cancel,color: Colors.red,),
               onTap: () => Navigator.of(context).pop(),
             ),
           ],
         ),
       ),
-      body: GridView(
-        padding: const EdgeInsets.all(16),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1,
-            crossAxisSpacing: 20,
-            mainAxisSpacing: 20,
-            childAspectRatio: 4),
-        children: [
-          for (final category in categories)
-            CategoryCard(
-              category: category,
-              onSelectCategory: () {
-                _selectCategory(context, category);
-              },
-            )
-        ],
+      body: Expanded(
+        child: GridView(
+          padding: const EdgeInsets.all(16),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 20,
+              childAspectRatio: 1),
+          children: [
+            for (final category in categories)
+              CategoryCard(
+                category: category,
+                onSelectCategory: () {
+                  _selectCategory(context, category);
+                },
+              )
+          ],
+        ),
       ),
     );
   }
