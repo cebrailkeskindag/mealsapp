@@ -15,7 +15,35 @@ class MealCard extends StatelessWidget {
           Navigator.of(context).push(
               MaterialPageRoute(builder: (ctx) => MealDetails(meal: meal)));
         },
-        child: Row(children: [Text(meal.name)]),
+        child: Stack(children: [
+          SizedBox(
+            width: double.infinity,
+            child: meal.imageUrl != null && meal.imageUrl.isNotEmpty
+                ? Image.network(meal.imageUrl, fit: BoxFit.cover)
+                : Container(
+                    color: Colors.redAccent,
+                    width: double.infinity,
+                    height: 200,
+                    child: const Center(
+                      child: Text(
+                        "Ürün resmi bulunmamaktadır.",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 40,
+            color: const Color.fromARGB(300, 200, 10, 50).withOpacity(0.9),
+            child: Center(
+              child: Text(
+                meal.name,
+                style: const TextStyle(color: Colors.white, fontSize: 24),
+              ),
+            ),
+          ),
+        ]),
       ),
     );
   }

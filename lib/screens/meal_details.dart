@@ -16,45 +16,80 @@ class MealDetails extends ConsumerStatefulWidget {
 class _MealDetailsState extends ConsumerState<MealDetails> {
   @override
   Widget build(BuildContext context) {
-    final favoriteMeals = ref.watch(favoriteMealsProvider); // bir veriyi izlemek,takip etmek
+    final favoriteMeals =
+        ref.watch(favoriteMealsProvider); // bir veriyi izlemek,takip etmek
 
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.meal.name),
+          centerTitle: true,
           actions: [
             IconButton(
                 onPressed: () {
-                  ref
-                  .read(favoriteMealsProvider.notifier)
-                  .toggleMealFavorite(widget.meal);  // notifier'i okuyup üzerindeki fonks. çalıştırmak
+                  ref.read(favoriteMealsProvider.notifier).toggleMealFavorite(widget
+                      .meal); // notifier'i okuyup üzerindeki fonks. çalıştırmak
                 },
-                icon: Icon(favoriteMeals.contains(widget.meal)
-                    ? Icons.favorite
-                    : Icons.favorite_border))
+                icon: Icon(
+                  favoriteMeals.contains(widget.meal)
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color: const Color.fromARGB(255, 245, 86, 0),
+                ))
           ],
         ),
-        body: Stack(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
-              width: 400,
-              height: 250,
-              color: Colors.amberAccent.withOpacity(0.7),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
+            Stack(children: [
+              Container(
+                width: double.infinity,
+                child: widget.meal.imageUrl != null &&
+                        widget.meal.imageUrl.isNotEmpty
+                    ? Image.network(widget.meal.imageUrl, fit: BoxFit.cover)
+                    : Container(
+                        color: Colors.red,
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: const Center(
+                          child: Text(
+                            "Ürün resmi bulunmamaktadır.",
+                            style: TextStyle(fontSize: 30),
+                          ),
+                        ),
+                      ),
+              ),
+              Container(
+                width: double.infinity,
+                height: 40,
+                color: const Color.fromARGB(300, 200, 10, 50).withOpacity(0.9),
+                child: Center(
+                  child: Text(
                     widget.meal.name,
-                    style: const TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.white, fontSize: 24),
                   ),
+                ),
+              ),
+            ]),
+            Container(
+              width: double.infinity,
+              height: 100,
+              color: const Color.fromARGB(300, 200, 10, 50).withOpacity(0.9),
+              child: Column(
+                children: [
+                  const Text(
+                    "İngredients",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  const Divider(
+                    height: 2,
+                  ),
+                  for (String name in widget.meal.ingredients)
+                    Text(
+                      name,
+                      style: const TextStyle(color: Colors.black),
+                    ),
                 ],
               ),
-            ),
-            Positioned(
-              top: 10.0,
-              left: 10.0,
-              right: 10.0,
-              child: Image.network(
-                  "https://www.floryabasakyemek.com/wp-content/uploads/2018/06/florya-basak-yemek-header-1600x925.jpg"),
             ),
           ],
         ));

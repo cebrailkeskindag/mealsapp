@@ -23,14 +23,20 @@ class MealList extends ConsumerWidget {
         itemBuilder: (ctx, index) => MealCard(meal: meals[index]));
 
     if (meals.isEmpty) {
-      widget = const Center(
-        child: Text("Bu kategoride hiç bir içerik bulunmamaktadır."),
-      );
+      widget = Center(
+          child: Container(
+        height: double.infinity,
+        width: double.infinity,
+        padding: const EdgeInsets.all(10),
+        color: Colors.white,
+        child: Image.asset("images/404.png"),
+      ));
     }
 
     return Scaffold(
         appBar: AppBar(
           title: const Text("Yemek Listesi"),
+          centerTitle: true,
         ),
         body: widget);
   }

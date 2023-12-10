@@ -17,6 +17,7 @@ class _FavoritesState extends ConsumerState<Favorites> {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text("Favoriler"),
       ),
       body: ListView.builder(
@@ -37,9 +38,8 @@ class _FavoritesState extends ConsumerState<Favorites> {
           SnackBar(
             content: Text(
               '${meal.name} favorilerden kaldırıldı.',
-              style:const TextStyle(color: Colors.red),
+              style: const TextStyle(color: Colors.red),
             ),
-            
           ),
         );
       },
@@ -51,12 +51,27 @@ class _FavoritesState extends ConsumerState<Favorites> {
           size: 24.0,
         ),
         alignment: Alignment.centerRight,
-        padding:const EdgeInsets.only(right: 16.0),
+        padding: const EdgeInsets.only(right: 16.0),
       ),
       child: ListTile(
-        title: Text(meal.name),
-        // Diğer yemek detayları veya işlevsellik buraya eklenebilir
-      ),
+          tileColor: Colors.deepOrangeAccent,
+          title: Container(
+            padding: EdgeInsets.all(5),
+            height: 60,
+            color: const Color.fromARGB(205, 247, 7, 47).withOpacity(0.9),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(meal.name),
+                Image.network(
+                  meal.imageUrl,
+                  scale: 3,
+                ),
+              ],
+            ),
+          )
+          // Diğer yemek detayları veya işlevsellik buraya eklenebilir
+          ),
     );
   }
 }

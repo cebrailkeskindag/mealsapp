@@ -26,8 +26,16 @@ class Categories extends StatelessWidget {
   List<Widget> _builderDrawItems(BuildContext context) {
     return categories.map((category) {
       return ListTile(
-        iconColor: Colors.amber,
-        title: Text(category.name),
+        tileColor: Colors.deepOrangeAccent,
+        title: Container(
+            height: 60,
+            color: const Color.fromARGB(205, 247, 7, 47).withOpacity(0.9),
+            child: Center(
+              child: Text(
+                category.name,
+                style: const TextStyle(color: Colors.white),
+              ),
+            )),
         onTap: () {
           _selectDrawerItem(context, category);
         },
@@ -40,11 +48,15 @@ class Categories extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Bir kategori seçin"),
+        centerTitle: true,
         actions: [
           IconButton(
               onPressed: () {},
               icon: IconButton(
-                icon: const Icon(Icons.favorite),
+                icon: const Icon(
+                  Icons.favorite,
+                  color: Color.fromARGB(255, 245, 86, 0),
+                ),
                 onPressed: () {
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (ctx) => const Favorites()));
@@ -74,8 +86,14 @@ class Categories extends StatelessWidget {
             ..._builderDrawItems(context),
             const Divider(),
             ListTile(
-              title: const Text("Vazgeç",style: TextStyle(color: Colors.red),),
-              trailing: const Icon(Icons.cancel,color: Colors.red,),
+              title: const Text(
+                "Vazgeç",
+                style: TextStyle(color: Colors.red),
+              ),
+              trailing: const Icon(
+                Icons.cancel,
+                color: Colors.red,
+              ),
               onTap: () => Navigator.of(context).pop(),
             ),
           ],
