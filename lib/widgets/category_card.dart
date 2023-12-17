@@ -23,15 +23,25 @@ class CategoryCard extends StatelessWidget {
               category.color.withOpacity(0.9)
             ], begin: Alignment.topLeft, end: Alignment.bottomRight),
           ),
-          child: Stack(
-              children: [
-                Image.network(
-                  "https://cdn.yemek.com/uploads/2015/11/wallpaper141.jpg",
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
+          child: Stack(children: [
+            Image.network(
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDhcsMO3_wSwSqLrl_URJBKQK9UzxKkJkByw&usqp=CAU",
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.cover,
+            ),
+            Center(
+                child: Container(
+              padding: EdgeInsets.all(8),
+              color: Theme.of(context).colorScheme.secondary,
+              child: Text(
+                category.name,
+                style: const TextStyle(
+                  fontSize: 18,
                 ),
-                Center(child: Text(category.name, style: TextStyle(color: Colors.black,fontSize: 18),))] )),
+              ),
+            ))
+          ])),
     );
   }
 }

@@ -4,6 +4,7 @@ class Meal {
       required this.categoryId,
       required this.name,
       required this.imageUrl,
+      required this.specification,
       required this.ingredients});
 
   final String id;
@@ -11,4 +12,5 @@ class Meal {
   final String name;
   final String imageUrl;
   final List<String> ingredients;
+  final String specification;
 }

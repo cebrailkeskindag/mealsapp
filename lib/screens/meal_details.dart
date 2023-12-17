@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mealsapp/models/meal.dart';
 import 'package:mealsapp/providers/favorites_provider.dart';
+import 'package:mealsapp/widgets/side_drawer_card.dart';
 
 // Stateful Widget => ConsumerStatefulWidget
 // State => ConsumerState
@@ -20,78 +21,115 @@ class _MealDetailsState extends ConsumerState<MealDetails> {
         ref.watch(favoriteMealsProvider); // bir veriyi izlemek,takip etmek
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.meal.name),
-          centerTitle: true,
-          actions: [
-            IconButton(
-                onPressed: () {
-                  ref.read(favoriteMealsProvider.notifier).toggleMealFavorite(widget
-                      .meal); // notifier'i okuyup üzerindeki fonks. çalıştırmak
-                },
-                icon: Icon(
-                  favoriteMeals.contains(widget.meal)
-                      ? Icons.favorite
-                      : Icons.favorite_border,
-                  color: const Color.fromARGB(255, 245, 86, 0),
-                ))
-          ],
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Stack(children: [
-              Container(
-                width: double.infinity,
-                child: widget.meal.imageUrl != null &&
-                        widget.meal.imageUrl.isNotEmpty
-                    ? Image.network(widget.meal.imageUrl, fit: BoxFit.cover)
-                    : Container(
-                        color: Colors.red,
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: const Center(
-                          child: Text(
-                            "Ürün resmi bulunmamaktadır.",
-                            style: TextStyle(fontSize: 30),
+      appBar: AppBar(
+        title: Text(widget.meal.name),
+        centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                ref.read(favoriteMealsProvider.notifier).toggleMealFavorite(widget
+                    .meal); // notifier'i okuyup üzerindeki fonks. çalıştırmak
+              },
+              icon: Icon(
+                favoriteMeals.contains(widget.meal)
+                    ? Icons.favorite
+                    : Icons.favorite_border,
+              ))
+        ],
+      ),
+      endDrawer: const SideDrawerCard(),
+      body: SingleChildScrollView(
+        child: Card(
+          child: Column(
+            children: [
+              Card(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: widget.meal.imageUrl != null &&
+                          widget.meal.imageUrl.isNotEmpty
+                      ? Image.network(widget.meal.imageUrl, fit: BoxFit.cover)
+                      : Container(
+                          width: double.infinity,
+                          height: 200,
+                          child: const Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  Icons.warning_amber_outlined,
+                                  color: Colors.red,
+                                  size: 50,
+                                ),
+                                Text(
+                                  "Ürün resmi bulunmamaktadır.",
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.red),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
+                ),
               ),
               Container(
                 width: double.infinity,
                 height: 40,
-                color: const Color.fromARGB(300, 200, 10, 50).withOpacity(0.9),
                 child: Center(
                   child: Text(
                     widget.meal.name,
-                    style: const TextStyle(color: Colors.white, fontSize: 24),
+                    style: const TextStyle(fontSize: 24),
                   ),
                 ),
               ),
-            ]),
-            Container(
-              width: double.infinity,
-              height: 100,
-              color: const Color.fromARGB(300, 200, 10, 50).withOpacity(0.9),
-              child: Column(
-                children: [
-                  const Text(
-                    "İngredients",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  const Divider(
-                    height: 2,
-                  ),
-                  for (String name in widget.meal.ingredients)
-                    Text(
-                      name,
-                      style: const TextStyle(color: Colors.black),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(6),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "İçindekiler",
+                      style: TextStyle(fontSize: 20),
                     ),
-                ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Divider(
+                      height: 2,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    for (String name in widget.meal.ingredients)
+                      Text(
+                        name,
+                      ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      "Tarif",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Divider(
+                      height: 2,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      widget.meal.specification,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ));
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
