@@ -4,18 +4,18 @@
 kullanıcıların favori tariflerini kaydedebildiği, kategorilere göre
 yemekleri filtreleyebildiği ve yemek detaylarına ulaşabildiği bir
 mobil uygulamadır. Bu uygulama, yemek yapmaya ilgi duyan ve farklı
-lezzetleri denemek isteyen kullanıcılar için tasarlanmıştır. **
+lezzetleri denemek isteyen kullanıcılar için tasarlanmıştır.**
 
 ## Kullanılan Yapılar
 - Provider
 - RiverPod
 - Theme (dark & light)
 
-##Programlama Dili
+## Programlama Dili
 - Flutter
 - Dart
 
-#Uygulama Arayüz Görselleri
+# Uygulama Arayüz Görselleri
 
 **Kategoriler Sayfası**
 
